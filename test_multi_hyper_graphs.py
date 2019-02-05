@@ -44,6 +44,8 @@ class TestEdge(object):
 class TestGraph(object):
     def test_isolated_vertex_is_a_graph(self):
         assert G.graph('x') == 'x'
+    def test_isolated_vertex_with_multiplicity_is_a_graph(self):
+        assert G.graph('x,x') == 'x,x'
     def test_loop_is_a_graph(self):
         assert G.graph('xx') == 'xx'
     def test_simple_edge_is_a_graph(self):
@@ -59,20 +61,32 @@ class TestGraph(object):
     def test_empty_graph_raises_error(self):
         with pytest.raises(AssertionError):
             G.graph('')
+    def test_empty_edge_raises_error(self):
+        with pytest.raises(AssertionError):
+            G.graph('xy,')
 
 
-def test_edges():
-    assert G.edges('x') == {frozencounter('x'): 1}
-    assert G.edges('xx') == {frozencounter('xx'): 1}
-    assert G.edges('x,x') == {frozencounter('x'): 2}
-    assert G.edges('xy') == {frozencounter('xy'): 1}
-    assert G.edges('xyz,zxy') == frozencounter({frozencounter('xyz'): 2})
-    assert G.edges('xyx,xy') == \
-        {frozencounter('xyx'): 1, frozencounter('xy'): 1}
-    with pytest.raises(AssertionError):
-        G.edges('')
-    with pytest.raises(AssertionError):
-        G.edges('xy,')
+class TestEdges(object):
+    def test_edges_of_a_single_vertex_graph(self):
+        assert G.edges('x') == {frozencounter('x'): 1}
+    def test_edges_of_a_self_loop_graph(self):
+        assert G.edges('xx') == {frozencounter('xx'): 1}
+    def test_edges_of_isolated_vertex_with_multiplicity(self):
+        assert G.edges('x,x') == {frozencounter('x'): 2}
+    def test_edges_of_simple_edge(self):
+        assert G.edges('xy') == {frozencounter('xy'): 1}
+    def test_edges_of_multi_simple_edge(self):
+        assert G.edges('xy,yx') == {frozencounter('xy'): 2}
+    def test_edges_of_multi_hyperedge(self):
+        assert G.edges('xyz,zxy') == frozencounter({frozencounter('xyz'): 2})
+    def test_edes_of_mixed_hyperness(self):
+        assert G.edges('xyx,xy') == {frozencounter('xyx'): 1, frozencounter('xy'): 1}
+    def test_empty_graph_raises_error(self):
+        with pytest.raises(AssertionError):
+            G.edges('')
+    def test_empty_edge_raises_error(self):
+        with pytest.raises(AssertionError):
+            G.edges('xy,')
     
 
 def test_vertices():
