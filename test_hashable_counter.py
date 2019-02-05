@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
 import collections
-from hashable_counter import frozencounter as fc
+from hashable_counter import frozencounter
 
 def test_basic_properties():
-    assert fc('aab') == fc('aab')
-    assert fc('aab') == fc('aba')
-    assert fc('aab') != fc('ab')
-    assert fc() == {}
-    assert fc() == collections.Counter()
+    assert frozencounter('aab') == frozencounter('aab')
+    assert frozencounter('aab') == frozencounter('aba')
+    assert frozencounter('aab') != frozencounter('ab')
+    assert frozencounter() == {}
+    assert frozencounter() == collections.Counter()
 
 def test_nested_properties():
-    assert fc([fc('aab'), fc('aba')]) == fc({fc('aab'): 2})
-    assert fc(fc()) == {}
-    assert fc(fc()) == collections.Counter()
+    assert frozencounter([frozencounter('aab'), frozencounter('aba')]) == frozencounter({frozencounter('aab'): 2})
+    assert frozencounter(frozencounter()) == {}
+    assert frozencounter(frozencounter()) == collections.Counter()
