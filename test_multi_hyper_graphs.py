@@ -24,6 +24,7 @@ class TestVertex(object):
         with pytest.raises(AssertionError):
             G.vertex('xy')
 
+
 class TestEdge(object):
     def test_simple_edge(self):
         assert G.edge('xy') == {'x': 1, 'y': 1}
@@ -39,17 +40,25 @@ class TestEdge(object):
         with pytest.raises(AssertionError):
             G.edge('')
     
-def test_graph():
-    assert G.graph('xy') in ['xy', 'yx']
-    assert G.graph('xyz') in \
-        ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
-    assert G.graph('xy,xy') in ['xy,xy', 'xy,yx', 'yx,xy', 'yx,yx']
-    assert G.graph('xyz,xyz') != G.graph('xyz')
-    assert G.graph('x') == 'x'
-    assert G.graph('xx') == 'xx'
-    assert G.graph('xyx') in ['xxy', 'xyx', 'yxx']
-    with pytest.raises(AssertionError):
-        G.graph('')
+
+class TestGraph(object):
+    def test_isolated_vertex_is_a_graph(self):
+        assert G.graph('x') == 'x'
+    def test_loop_is_a_graph(self):
+        assert G.graph('xx') == 'xx'
+    def test_simple_edge_is_a_graph(self):
+        assert G.graph('xy') in ['xy', 'yx']
+    def test_hyper_edge_is_a_graph(self):
+        assert G.graph('xyz') in ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
+    def test_multi_edge_is_a_graph(self):
+        assert G.graph('xy,xy') in ['xy,xy', 'xy,yx', 'yx,xy', 'yx,yx']
+    def test_collapsed_edge_is_a_graph(self):
+        assert G.graph('xyx') in ['xxy', 'xyx', 'yxx']
+    def test_multiplicity_is_preserved_in_hyperedges(self):    
+        assert G.graph('xyz,xyz') != G.graph('xyz')
+    def test_empty_graph_raises_error(self):
+        with pytest.raises(AssertionError):
+            G.graph('')
 
 
 def test_edges():
