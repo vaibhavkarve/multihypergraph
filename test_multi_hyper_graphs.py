@@ -24,13 +24,20 @@ class TestVertex(object):
         with pytest.raises(AssertionError):
             G.vertex('xy')
 
-def test_edge():
-    assert G.edge('xy') == {'x': 1, 'y': 1}
-    assert G.edge('xyz') == {'x': 1, 'y': 1, 'z': 1}
-    assert G.edge('xyx') == {'x': 2, 'y': 1}
-    assert G.edge('x') == {'x': 1}
-    with pytest.raises(AssertionError):
-        G.edge('')
+class TestEdge(object):
+    def test_simple_edge(self):
+        assert G.edge('xy') == {'x': 1, 'y': 1}
+    def test_hyper_edge(self):
+        assert G.edge('xyz') == {'x': 1, 'y': 1, 'z': 1}
+    def test_collapsed_edge(self):
+        assert G.edge('xyx') == {'x': 2, 'y': 1}
+    def test_isolated_vertex(self):
+        assert G.edge('x') == {'x': 1}
+    def test_self_loop(self):
+        assert G.edge('xx') == {'x': 2}
+    def empty_edge_raises_error(self):
+        with pytest.raises(AssertionError):
+            G.edge('')
     
 def test_graph():
     assert G.graph('xy') in ['xy', 'yx']
