@@ -88,23 +88,32 @@ class TestEdges(object):
         with pytest.raises(AssertionError):
             G.edges('xy,')
     
+class TestVertices(object):
+    def test_isolated_vertex_graph(self):
+        assert G.vertices('x') == {'x'}
 
-def test_vertices():
-    assert G.vertices('xyz,xy,ab') == set('xyzab')
-    assert G.vertices('xyx,xy') == set('xy')
-    with pytest.raises(AssertionError):
-        G.vertices('')
-    with pytest.raises(AssertionError):
-        G.vertices('xy,')
+    def test_vertices_ignores_multiplicity(self):
+        assert G.vertices('x,x') == {'x'}
+        assert G.vertices('xx') == {'x'}
+        assert G.vertices('xx,x') == {'x'}
+        assert G.vertices('xy,yx') == set('xy')
 
+    def test_empty_graph_raises_error(self):
+        with pytest.raises(AssertionError):
+            G.vertices('')
 
-def test_is_vertexmap():
-    assert G.is_vertexmap({'a': 'x', 'b': 'y'}, 'ab', 'xyz,db')
-    assert G.is_vertexmap({'a': 'x', 'b': 'y'}, 'ab,ab', 'xy,db')
-    assert G.is_vertexmap({'a': 'b', 'b': 'a'}, 'ab')
-    assert not G.is_vertexmap({'a': 'b', 'b': 'a'}, 'abc')
-    assert not G.is_vertexmap({'a': 'x', 'b': 'y'}, 'ab')
-    assert not G.is_vertexmap({}, 'ab,cd')
+    def test_empty_edge_raises_error(self):
+        with pytest.raises(AssertionError):
+            G.vertices('xy,')
+
+class TestIsVertexmap(object):
+    def test_is_vertexmap(self):
+        assert G.is_vertexmap({'a': 'x', 'b': 'y'}, 'ab', 'xyz,db')
+        assert G.is_vertexmap({'a': 'x', 'b': 'y'}, 'ab,ab', 'xy,db')
+        assert G.is_vertexmap({'a': 'b', 'b': 'a'}, 'ab')
+        assert not G.is_vertexmap({'a': 'b', 'b': 'a'}, 'abc')
+        assert not G.is_vertexmap({'a': 'x', 'b': 'y'}, 'ab')
+        assert not G.is_vertexmap({}, 'ab,cd')
 
 
 def test_is_injective():
