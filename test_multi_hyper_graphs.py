@@ -107,14 +107,28 @@ class TestVertices(object):
             G.vertices('xy,')
 
 class TestIsVertexmap(object):
-    def test_is_vertexmap(self):
+    def test_isolated_vertex_graph(self):
+        assert G.is_vertexmap({'a': 'x'}, 'a', 'xyz,db')
+    def test_isolated_vertex_graph_with_multiplicity(self):
+        assert G.is_vertexmap({'a': 'x'}, 'a,a', 'xyz,db')
+    def test_self_loop_graph(self):
+        assert G.is_vertexmap({'a': 'x'}, 'aa', 'xyz,db')
+    def test_simple_edge_graph(self):
         assert G.is_vertexmap({'a': 'x', 'b': 'y'}, 'ab', 'xyz,db')
-        assert G.is_vertexmap({'a': 'x', 'b': 'y'}, 'ab,ab', 'xy,db')
-        assert G.is_vertexmap({'a': 'b', 'b': 'a'}, 'ab')
-        assert not G.is_vertexmap({'a': 'b', 'b': 'a'}, 'abc')
-        assert not G.is_vertexmap({'a': 'x', 'b': 'y'}, 'ab')
-        assert not G.is_vertexmap({}, 'ab,cd')
-
+    def test_hyperedge_graph(self):
+        assert G.is_vertexmap({'a': 'x', 'b': 'y', 'c': 'x'}, 'abc', 'xyz,db')
+    def test_not_covering_all_domain_vertices(self):
+        assert not G.is_vertexmap({'a': 'x', 'b': 'y'}, 'abc', 'xyz,db')
+    def test_covering_more_than_domain_vertices(self):
+        assert not G.is_vertexmap({'a': 'x', 'b': 'y'}, 'a', 'xyz,db')
+    def test_covering_more_than_codomain_vertices(self):
+        assert not G.is_vertexmap({'a': 'a'}, 'a', 'xyz,db')
+    def test_no_second_argument(self):
+        assert G.is_vertexmap({'a': 'b', 'b': 'a'}, 'aab')
+        assert G.is_vertexmap({'a': 'a', 'b': 'b'}, 'aab')
+    def test_empty_dictionary(self):
+        assert not G.is_vertexmap({}, 'a')
+        
 
 def test_is_injective():
     assert G.is_injective({'a': 'x', 'b': 'y'})
