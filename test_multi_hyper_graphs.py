@@ -128,13 +128,19 @@ class TestIsVertexmap(object):
         assert G.is_vertexmap({'a': 'a', 'b': 'b'}, 'aab')
     def test_empty_dictionary(self):
         assert not G.is_vertexmap({}, 'a')
-        
 
-def test_is_injective():
-    assert G.is_injective({'a': 'x', 'b': 'y'})
-    assert G.is_injective({'a': 'b', 'b': 'a'})
-    assert not G.is_injective({'a': 'c', 'b': 'c'})
-    assert G.is_injective({})
+
+class TestIsInjective(object):
+    def test_dictionary_with_different_keys_and_values(self):
+        assert G.is_injective({'a': 'x', 'b': 'y'})
+    def test_dictionary_with_same_keys_and_values(self):
+        assert G.is_injective({'a': 'b', 'b': 'a'})
+    def test_identity(self):
+        assert G.is_injective({'a': 'a'})
+    def test_two_keys_mapping_to_the_same_value(self):
+        assert not G.is_injective({'a': 'c', 'b': 'c'})
+    def test_empty_dictionary_is_injective(self):
+        assert G.is_injective({})
 
 
 def test_is_morphism():
