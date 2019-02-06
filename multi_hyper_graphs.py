@@ -36,6 +36,9 @@ def edge(s: str) -> Edge:
     """Check axioms that Edge type must satisfy.
 
     By definition, an edge is a (frozen)counter of vertices.
+    Isolated vertices are edges.
+    Self-loops are edges.
+    Collapsed edges are edges.
     """
     assert s, 'Empty edges not allowed.'
     return Edge(frozencounter(map(vertex, s)))
@@ -48,8 +51,9 @@ def graph(expression: str) -> Graph:
     commas.
     Multiedges and hyperedges are allowed.
     Self-loops are allowed.
-    Repetition of vertices in the same edge is allowed.
+    Repetition of vertices in the same edge (collapsed edges) is allowed.
     Isolated vertices are allowed.
+    Isolated vertices with multiplicity are allowed.
     Empty edges are not allowed.
     """
     edge_iter: Iterator[Edge] = map(edge, expression.split(','))
@@ -77,10 +81,6 @@ def vertices(g: Graph) -> VertexSet:
     vertex_set: VertexSet = frozenset()
     return vertex_set.union(*edges_without_multiplicities)
 
-########################################################
-## CHECK FROM HERE
-########################################################
-
 
 def is_vertexmap(d: Dict[Vertex, Vertex], g: Graph, h: Optional[Graph] = None)\
     -> bool:
@@ -102,7 +102,7 @@ def is_vertexmap(d: Dict[Vertex, Vertex], g: Graph, h: Optional[Graph] = None)\
 
 def is_injective(d: Dict) -> bool:
     """Check if a dictionary is injective."""
-    return len(d.keys()) == len(frozenset(d.values()))
+    return len(d) == len(frozenset(d.values()))
 
 
 def is_morphism(d: Dict[Vertex, Vertex], g: Graph, h: Optional[Graph] = None) \
