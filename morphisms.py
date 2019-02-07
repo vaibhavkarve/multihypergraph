@@ -109,11 +109,11 @@ def is_morphism(d: Dict[Vertex, Vertex], g: Graph, h: Optional[Graph] = None) \
     -> bool:
     """Check if a dictionary is a morphism from one graph to another.
 
-    If second graph is not provided, then check whether the injective vertexmap
+    If second graph is not provided, then check whether the given dictionary
     is a morphism from the graph to itself.
     Check axioms that Morphism type must satisfy.
-    By definition, a graph (homo)morphism is a VertexMap such that adjacent
-    vertices are mapped to adjacent vertices.
+    By definition, a graph (homo)morphism is a VertexMap such that
+    adjacent vertices are mapped to adjacent vertices.
     Injectivity ensures that edges do not get mapped to collapsed edges.
     Morphisms by our definition will ignore edge-multiplicities.
     Note that not every injective vertexmap is a morphism.
@@ -137,6 +137,7 @@ def is_morphism(d: Dict[Vertex, Vertex], g: Graph, h: Optional[Graph] = None) \
         if edge_g in edges(g) and mapped_edge2 not in edges(h):
             return False
     return True
+
 
 def empty_morphism() -> Morphism:
     """Return an empty morphism."""
