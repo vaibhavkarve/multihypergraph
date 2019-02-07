@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+### WIP
+
 from .context import multihypergraph
 from multihypergraph import morphisms as G
 from multihypergraph.hashable_counter import frozencounter
