@@ -10,9 +10,9 @@ from collections import Counter as counter
 from typing import (List, FrozenSet, Dict, Iterator, Tuple, KeysView,
                     Counter, NewType, Iterable, Union, Optional)
 
-from multihypergraph.hashable_counter import frozencounter, FrozenCounter
-from multihypergraph.objects import (Vertex, Graph, Edge, EdgeCounter,
-                                     vertices, edge, edges, graph)
+from .hashable_counter import frozencounter, FrozenCounter
+from .objects import (Vertex, Graph, Edge, EdgeCounter,
+                     vertices, edge, edges, graph)
 
 # Define new types and type aliases.
 VertexMap = NewType('VertexMap', Dict[Vertex, Vertex])

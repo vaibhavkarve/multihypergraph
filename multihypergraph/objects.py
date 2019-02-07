@@ -10,7 +10,7 @@ from collections import Counter as counter
 from typing import (List, FrozenSet, Dict, Iterator, Tuple, KeysView,
                     Counter, NewType, Iterable, Union, Optional)
 
-from multihypergraph.hashable_counter import frozencounter, FrozenCounter
+from .hashable_counter import frozencounter, FrozenCounter
 
 # Define new types and type aliases.
 Vertex = NewType('Vertex', str)
