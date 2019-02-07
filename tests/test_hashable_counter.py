@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import collections
-from hashable_counter import frozencounter
+from .context import multihypergraph
+#from hashable_counter import frozencounter
 
 def test_basic_properties():
     assert frozencounter('aab') == frozencounter('aab')

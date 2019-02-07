@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import multi_hyper_graphs as G
-from hashable_counter import frozencounter
+import multihypergraph.morphisms as G
+from multihypergraph.hashable_counter import frozencounter
 import pytest
 
 class TestVertex(object):

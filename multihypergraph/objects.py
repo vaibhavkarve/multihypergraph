@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Constructors and objects for looped-multi-hyper-graphs.
 
@@ -10,7 +10,7 @@ from collections import Counter as counter
 from typing import (List, FrozenSet, Dict, Iterator, Tuple, KeysView,
                     Counter, NewType, Iterable, Union, Optional)
 
-from hashable_counter import frozencounter, FrozenCounter
+from multihypergraph.hashable_counter import frozencounter, FrozenCounter
 
 # Define new types and type aliases.
 Vertex = NewType('Vertex', str)
