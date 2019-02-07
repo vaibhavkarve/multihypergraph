@@ -5,6 +5,8 @@
 Think of these as the "morphisms" for the category of looped-multi-hyper-graphs.
 """
 
+## WIP
+
 import itertools as it
 from collections import Counter as counter
 from typing import (List, FrozenSet, Dict, Iterator, Tuple, KeysView,
