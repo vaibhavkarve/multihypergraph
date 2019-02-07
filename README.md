@@ -11,7 +11,8 @@ A simple python package for graph theory that supports multi-edges, hyper-edges,
 Check out the wikipedia entries for [Hypergraph](https://en.wikipedia.org/wiki/Hypergraph) and [Multigraph](https://en.wikipedia.org/wiki/Multigraph). Think of this package as happy marriage between the two.
 
 ## Installation
->>> pip install multihypergraph
+  
+    pip install multihypergraph
 
 ## Features
   - Almost all the code is functional.
